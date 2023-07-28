@@ -47,4 +47,4 @@ Homepage = "https://github.com/astronomer/astronomer-cosmos"
 Documentation = "https://github.com/astronomer/astronomer-cosmos"
 
 [tool.hatch.version]
-path = "__init__.py"
+path = "astronomerregistry/__init__.py"
