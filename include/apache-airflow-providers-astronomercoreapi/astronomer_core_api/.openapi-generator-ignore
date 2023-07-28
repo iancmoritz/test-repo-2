@@ -1,0 +1,14 @@
+.github/*
+.openapi-generator/*
+test/*
+README.md
+docs/*
+.travis.yml
+git_push.sh
+requirements.txt
+setup.cfg
+setup.py
+test-requirements.txt
+tox.ini
+.gitlab-ci.yml
+.gitignore

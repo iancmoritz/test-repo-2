@@ -1,0 +1,51 @@
+from __future__ import annotations
+
+import logging
+from typing import TYPE_CHECKING
+
+from airflow.models import BaseOperator
+from astronomer_core_api.hooks.astronomer_core_api_api import AstronomerCoreApiHook
+
+from astronomer_core_api.sdk.models import (
+    UpdateAzureClusterRequest,
+)
+
+from typing_extensions import Annotated
+from pydantic import Field, StrictStr
+
+if TYPE_CHECKING:
+    from airflow.utils.context import Context
+
+logger = logging.getLogger(__name__)
+
+
+class UpdateAzureClusterOperator(BaseOperator):
+    def __init__(
+        self,
+        conn_id: str,
+        organization_id: Annotated[
+            StrictStr, Field(..., description="organization ID")
+        ],
+        cluster_id: Annotated[StrictStr, Field(..., description="cluster ID")],
+        body: Annotated[
+            UpdateAzureClusterRequest,
+            Field(..., description="request body for updating an Azure cluster"),
+        ],
+        **kwargs,
+    ) -> None:
+        super().__init__(**kwargs)
+        self.conn_id = conn_id
+        self.organization_id = organization_id
+        self.cluster_id = cluster_id
+        self.body = body
+        self.hook: AstronomerCoreApiHook(conn_id=conn_id)
+
+    def execute(self, context: Context) -> None:
+        response = self.hook.update_azure_cluster(
+            organization_id=self.organization_id,
+            cluster_id=self.cluster_id,
+            body=self.body,
+        )
+        self.log.info(response)
+        return response
+

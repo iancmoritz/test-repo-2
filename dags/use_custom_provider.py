@@ -3,7 +3,7 @@ from datetime import datetime
 from airflow.decorators import dag
 from airflow.operators.empty import EmptyOperator
 
-from astronomerregistry.operators import list_dags
+from astronomer_core_api.operators.list_dags import ListDagsOperator
 
 @dag(
     schedule_interval="@daily",
@@ -17,9 +17,15 @@ def simple_task_group() -> None:
     """
     pre_dbt = EmptyOperator(task_id="pre_dbt")
 
-    list_dags_task = list_dags(
+    list_dags_task = ListDagsOperator(
+        task_id="list_dags_task",
         conn_id="astronomer-registry",
-        org_short_name_id="public")
+        organization_id="something-something",
+        deployment_ids=["something-something"],
+        workspace_ids=["something-something"],
+        offset=0,
+        limit=100,
+        sorts=["dag_id:asc"])
     
     post_dbt = EmptyOperator(task_id="post_dbt")
 
