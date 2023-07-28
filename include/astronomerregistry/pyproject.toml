@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "astronomerregistry"
+dynamic = ["version"]
+description = "Render 3rd party workflows in Airflow"
+readme = "README.rst"
+license = "Apache-2.0"
+requires-python = ">=3.7"
+authors = [{ name = "Astronomer", email = "humans@astronomer.io" }]
+keywords = ["airflow", "apache-airflow", "astronomer", "dags", "dbt"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Apache Airflow",
+    "Framework :: Apache Airflow :: Provider",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+dependencies = [
+    # Airflow & Pydantic issue: https://github.com/apache/airflow/issues/32311
+    "click",
+    "pydantic>=1.10.5,<2.0.0",
+    "Jinja2>=3.0.0",
+    "urllib3>1.25.3,<2.1.0",
+    "docker",
+    "case-converter",
+    "typing-extensions",
+    "python_dateutil>=2.5.3",
+    "setuptools>=21.0.0",
+    "aenum>=3.1.11",
+    "autoflake",
+    "black",
+]
+
+[project.urls]
+Homepage = "https://github.com/astronomer/astronomer-cosmos"
+Documentation = "https://github.com/astronomer/astronomer-cosmos"
+
+[tool.hatch.version]
+path = "__init__.py"
